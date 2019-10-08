@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   });
 });
 
-io.on("connection", socket => {
+io.sockets.on("connection", socket => {
   console.log("client is connected");
 });
 
