@@ -9,8 +9,8 @@ let connections = [];
 server.listen(process.env.PORT || 5000);
 console.log("server running...");
 
-app.get("/", (req, re) => {
-  resizeBy.sendFile(__dirname + "./index.html");
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
 });
 
 io.sockets.on("connection", socket => {
