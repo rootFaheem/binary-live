@@ -1,17 +1,23 @@
-const app = require("express")();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const express = require("express");
+const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io").listen(server);
 
-app.get("/", (req, res) => {
-  console.log("server connected");
-  res.status(200).json({
-    success: true,
-    message: "connected to server"
-  });
+let users = [];
+let connections = [];
+
+server.listen(process.env.PORT || 5000);
+console.log("server running...");
+
+app.get("/", (req, re) => {
+  resizeBy.sendFile(__dirname + "./index.html");
 });
 
 io.sockets.on("connection", socket => {
-  console.log("client is connected");
-});
+  connections.push(socket);
+  console.log("Connected: %s sockets connected", connections.length);
 
-app.listen(5000, () => console.log("listening on the port: 5000"));
+  // Disconnect
+  connections.splice(connections.indexOf(socket));
+  console.log("Disconnected: %s sockets connection", connections.length);
+});
