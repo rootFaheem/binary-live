@@ -7,13 +7,14 @@ let users = [];
 let connections = [];
 
 server.listen(process.env.PORT || 5000);
-console.log("server running...");
+console.log("server running at...", 5000);
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
 io.sockets.on("connection", socket => {
+  console.log("socket hit:");
   connections.push(socket);
   console.log("Connected: %s sockets connected", connections.length);
 
