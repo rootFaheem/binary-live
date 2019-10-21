@@ -20,6 +20,10 @@ io.sockets.on("connection", socket => {
 
   // Disconnect
   socket.on("disconnect", data => {
+    // if (!socket.username) return;
+    users.splice(users.indexOf(socket.username), 1);
+    updateUsername();
+
     connections.splice(connections.indexOf(socket));
     console.log("Disconnected: %s sockets connection", connections.length);
   });
@@ -29,4 +33,16 @@ io.sockets.on("connection", socket => {
     console.log("data:", data);
     io.sockets.emit("new message", { msg: data });
   });
+
+  // New User
+  socket.on("New User", (data, callback) => {
+    callback(true);
+    socket.username = data;
+    users.push(socket.username);
+    updateUsername();
+  });
+
+  const updateUsername = () => {
+    io.sockets.emit("get users", users);
+  };
 });
