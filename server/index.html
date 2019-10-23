@@ -28,34 +28,32 @@
         <div class="col-md-12">
             <form id="userForm">
                 <label>Enter User Name:</label>
-<input class="form-control" id="username" />
-<br />
-<input class="btn btn-primary" type="submit" value="Login" />
-
-
-</form>
+                <input class="form-control" id="username" />
+                <br />
+                <input class="btn btn-primary" type="submit" value="Login" />
             </form>
         </div>
     </div>
 
     <div class="row" id="messageArea">
-<div class="col-md-4">
-    <div class="well">
-        <h3>Online Users</h3>
-        <ul class="list-group" id="users"></ul>
-    </div>
-</div>
-<div class="col-md-8">
-    <div class="chat p-5 bg-light" id="chat"></div>
-    <form id="messageForm">
-        <div class="form-group">
-            <label> Enter Message</label>
-            <textarea class="form-control" rows="5" id="message"></textarea>
-            <br />
-            <input type="submit" class="btn btn-primary" value="Send Message">
+        <div class="col-md-4">
+            <div class="well">
+                <h3>Online Users</h3>
+                <ul class="list-group" id="users"></ul>
+            </div>
         </div>
-    </form>
-</div>
+
+        <div class="col-md-8">
+            <div class="chat p-5 bg-light" id="chat"></div>
+            <form id="messageForm">
+                <div class="form-group">
+                    <label> Enter Message</label>
+                    <textarea class="form-control" rows="5" id="message"></textarea>
+                    <br />
+                    <input type="submit" class="btn btn-primary" value="Send Message">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -73,13 +71,13 @@
             var $messageArea = $("#messageArea")
             var $userForm = $("#userForm")
             var $users = $("#users")
-            var $userName = $("#username")
+            var $username = $("#username")
 
             $messageForm.submit((e) => {
                 e.preventDefault()
                 console.log('Submited')
 
-                socket.emit("Send Message", $message.val())
+                socket.emit("send message", $message.val())
                 $message.val("")
             })
 
@@ -89,21 +87,23 @@
 
             $userForm.submit(e => {
                 e.preventDefault();
-                socket.emit("new user", $userName.val(), (data) => {
+                socket.emit("new user", $username.val(), (data) => {
                     if(data) {
                         $userFormArea.hide();
                         $messageArea.show();
                     }
                 });
 
-                $userName.val("")
+                $username.val('')
             });
 
             socket.on("get users", (data) => {
-                var html = "";
-                for(i = 0; i< data.length; i++) {
+                var html = '';
+                for(let i = 0; i < data.length; i++) {
                     html += '<li class="list-group-item">' +data[i]+ '</li>'
                 }
+
+                $users.html(html)
             })
 
 

@@ -29,13 +29,13 @@ io.sockets.on("connection", socket => {
   });
 
   // Send Messages
-  socket.on("Send Message", data => {
+  socket.on("send message", data => {
     console.log("data:", data);
     io.sockets.emit("new message", { msg: data });
   });
 
   // New User
-  socket.on("New User", (data, callback) => {
+  socket.on("new user", (data, callback) => {
     callback(true);
     socket.username = data;
     users.push(socket.username);
