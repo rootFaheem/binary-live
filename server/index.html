@@ -24,7 +24,7 @@
 <body>
 
 <div class="container mt-5">
-    <div id="userFormArea" class="row">
+    <div class="row" id="userFormArea" >
         <div class="col-md-12">
             <form id="userForm">
                 <label>Enter User Name:</label>
@@ -36,14 +36,14 @@
     </div>
 
     <div class="row" id="messageArea">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-4">
             <div class="well">
                 <h3>Online Users</h3>
                 <ul class="list-group" id="users"></ul>
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-8">
             <div class="chat p-5 bg-light" id="chat"></div>
             <form id="messageForm">
                 <div class="form-group">
@@ -82,7 +82,7 @@
             })
 
             socket.on("new message", (data) => {
-                $chat.append('<div class="well">'+data.msg+ '</div>');
+                $chat.append('<div class="well"><strong>'+data.user+ '</strong>: '+data.msg+ '</div>');
             })
 
             $userForm.submit(e => {
