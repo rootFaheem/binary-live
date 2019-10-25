@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import io from "socket.io-client";
+
+import openSocket from "socket.io-client";
 
 import "./App.css";
 
-const socket = io();
-
-// const adminSocket = io("http://localhost:5000/");
-
 class App extends Component {
   componentDidMount = () => {
-    const socketReq = io.connect();
+    openSocket("http://localhost:5000");
   };
 
   render() {
