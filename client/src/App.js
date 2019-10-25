@@ -6,7 +6,7 @@ import "./App.css";
 
 class App extends Component {
   componentDidMount = () => {
-    openSocket("http://localhost:5000");
+    openSocket("/");
   };
 
   render() {

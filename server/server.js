@@ -4,8 +4,8 @@ const app = express();
 let users = [];
 let connections = [];
 
-const server = app.listen(5000, () => {
-  console.log("server running at...", 5000);
+const server = app.listen(8080, () => {
+  console.log("server running at...", 8080);
 });
 
 const io = require("socket.io")(server);
