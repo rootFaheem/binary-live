@@ -1,39 +1,39 @@
 import React, { Component } from "react";
 import OpenSocket from "socket.io-client";
 
-import { makeStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-const myStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: "20px",
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: "#717171"
   }
-}));
+});
 
 class User extends Component {
   componentDidMount = () => {
     OpenSocket("/");
   };
   render() {
-    const { classes } = this.props.myStyles();
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid conainter spacing={3}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper>BINARY-LIVE</Paper>
+            <Paper className={classes.paper}>BINARY-LIVE</Paper>
           </Grid>
-          <Grid item xs={12}>
+          <Grid container item xs={12} spacing={6}>
             <Grid item xs={4}>
-              ONLINE USERS
+              <Paper className={classes.paper}>ONLINE USERS LIST</Paper>
             </Grid>
             <Grid item xs={8}>
-              CHAT AREA
+              <Paper className={classes.paper}>CHAT AREA</Paper>
             </Grid>
           </Grid>
         </Grid>
@@ -42,4 +42,4 @@ class User extends Component {
   }
 }
 
-export default User;
+export default withStyles(styles)(User);
