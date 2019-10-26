@@ -21,17 +21,21 @@ const styles = theme => ({
 class User extends Component {
   state = {
     users: [
-      { name: "faheem", imgURL: "" },
+      { name: "Faheem Ahmad", imgURL: "" },
       {
-        name: "musk",
+        name: "Elon Musk",
         imgURL: ""
       },
       {
-        name: "jeff",
+        name: "Jeff Bezos",
         imgURL: ""
       },
       {
-        name: "peter",
+        name: "Peter Theil",
+        imgURL: ""
+      },
+      {
+        name: "Faisal Computer",
         imgURL: ""
       }
     ]

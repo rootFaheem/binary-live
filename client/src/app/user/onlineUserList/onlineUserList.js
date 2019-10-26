@@ -10,19 +10,26 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    border: "1px solid #bbb",
+    borderRadius: "8px",
+    // boxShadow: "5px 5px #eee",
+    height: "90vh",
+    overflow: "scroll"
+  },
+  itemMargin: {
+    marginLeft: "30px"
   }
 }));
 
 const OnlineUserList = props => {
   const classes = useStyles();
 
-  console.log("props", props);
   return (
-    <List dense className={classes.root}>
+    <List dense className={classes.root} m={10}>
       {props.users.map((item, index) => {
         return (
-          <ListItem key={index} button>
+          <ListItem key={index} button className={classes.itemMargin}>
             <ListItemAvatar>
               <Avatar alt="image" src={item.imgURL} />
             </ListItemAvatar>
