@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import User from "./app/user/user";
+import Landing from "./app/landing/landing";
 import "./App.css";
 
 import AppBar from "./app/navBar/navBar";
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <AppBar></AppBar>
-        <User></User>
+        <Landing></Landing>
       </div>
     );
   }
