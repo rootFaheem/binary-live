@@ -25,9 +25,6 @@ class User extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>BINARY-LIVE</Paper>
-          </Grid>
           <Grid container item xs={12} spacing={6}>
             <Grid item xs={4}>
               <Paper className={classes.paper}>ONLINE USERS LIST</Paper>
