@@ -5,6 +5,8 @@ import { withStyles } from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
+import OnlineUserList from "./onlineUserList/onlineUserList";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -17,6 +19,24 @@ const styles = theme => ({
 });
 
 class User extends Component {
+  state = {
+    users: [
+      { name: "faheem", imgURL: "" },
+      {
+        name: "musk",
+        imgURL: ""
+      },
+      {
+        name: "jeff",
+        imgURL: ""
+      },
+      {
+        name: "peter",
+        imgURL: ""
+      }
+    ]
+  };
+
   componentDidMount = () => {
     OpenSocket("/");
   };
@@ -27,7 +47,7 @@ class User extends Component {
         <Grid container spacing={3}>
           <Grid container item xs={12} spacing={6}>
             <Grid item xs={4}>
-              <Paper className={classes.paper}>ONLINE USERS LIST</Paper>
+              <OnlineUserList users={this.state.users}></OnlineUserList>
             </Grid>
             <Grid item xs={8}>
               <Paper className={classes.paper}>CHAT AREA</Paper>
