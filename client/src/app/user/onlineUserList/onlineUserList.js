@@ -11,9 +11,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-    border: "1px solid #bbb",
-    borderRadius: "5px",
-    // boxShadow: "5px 5px #eee",
+    border: "1px solid #eee",
+    // borderRadius: "5px",
+    // boxShadow: "12px 12px #eee",
     height: "85vh",
     maxHeight: "85vh",
     overflow: "scroll"
