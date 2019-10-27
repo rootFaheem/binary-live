@@ -75,7 +75,6 @@
 
             $messageForm.submit((e) => {
                 e.preventDefault()
-                console.log('Submited')
 
                 socket.emit("send message", $message.val())
                 $message.val("")

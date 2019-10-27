@@ -54,9 +54,17 @@ class ChatArea extends Component {
   };
 
   componentDidMount = () => {
+    let { messagesList } = this.state;
+
     const socket = OpenSocket("/");
-    socket.on("messages", data => {
-      console.log("data", data);
+    socket.on("messages", res => {
+      if (res.action === "messages update") {
+        messagesList.push(res.data.message);
+        this.setState({
+          messagesList,
+          message: ""
+        });
+      }
     });
   };
 
@@ -69,21 +77,13 @@ class ChatArea extends Component {
   };
 
   handleMessageSend = async e => {
-    let message = this.state.message;
-    let messagesList = this.state.messagesList;
-    messagesList.push(message);
+    let { message } = this.state;
 
-    // clear the message area after send
-    this.setState({
-      messagesList,
-      message: ""
-    });
-    console.log("Message state:", this.state);
+    const data = { userId: "UID-01", message };
     let response = await axios.post(
       "http://localhost:8080/api/chat/send-message",
-      this.state.message
+      data
     );
-    console.log("response:", response);
   };
 
   render() {
