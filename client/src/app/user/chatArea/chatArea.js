@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/styles";
+import OpenSocket from "socket.io-client";
 
+import { withStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
@@ -24,7 +25,8 @@ const styles = theme => ({
   groupName: {
     padding: "10px 20px",
     textAlign: "left",
-    background: "#f5f5f5",
+    background: "#5f3f5f",
+    color: "#fff",
     display: "flex",
     fontSize: "40px"
   },
@@ -48,6 +50,13 @@ class ChatArea extends Component {
   state = {
     messagesList: [],
     message: ""
+  };
+
+  componentDidMount = () => {
+    const socket = OpenSocket("/");
+    socket.on("messages", data => {
+      console.log("data", data);
+    });
   };
 
   handleMessageChanged = e => {

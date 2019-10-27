@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 let users = [];
 let connections = [];
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 const server = app.listen(8080, () => {
   console.log("server running at...", 8080);

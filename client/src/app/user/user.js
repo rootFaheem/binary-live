@@ -42,8 +42,12 @@ class User extends Component {
   };
 
   componentDidMount = () => {
-    OpenSocket("/");
+    let socket = OpenSocket("/");
+    socket.on("messages", data => {
+      console.log("data", data);
+    });
   };
+
   render() {
     const { classes } = this.props;
     return (
