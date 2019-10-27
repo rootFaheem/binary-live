@@ -1,6 +1,7 @@
 const io = require("../../utils/socket");
 
-const chat = async () => {
+const chat = async (req, res) => {
+  console.log("data:", req.body);
   const data = {
     message: "Hi there from server end?",
     userId: "UID-123"

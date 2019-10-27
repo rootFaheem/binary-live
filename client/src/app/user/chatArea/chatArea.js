@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import OpenSocket from "socket.io-client";
+import axios from "axios";
 
 import { withStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
@@ -67,7 +68,7 @@ class ChatArea extends Component {
     });
   };
 
-  handleMessageSend = e => {
+  handleMessageSend = async e => {
     let message = this.state.message;
     let messagesList = this.state.messagesList;
     messagesList.push(message);
@@ -78,6 +79,11 @@ class ChatArea extends Component {
       message: ""
     });
     console.log("Message state:", this.state);
+    let response = await axios.post(
+      "http://localhost:8080/api/chat/send-message",
+      this.state.message
+    );
+    console.log("response:", response);
   };
 
   render() {
