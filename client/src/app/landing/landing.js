@@ -5,8 +5,14 @@ import ChatList from "../user/user";
 
 export default function landing() {
   return (
-    <Container>
-      <ChatList></ChatList>
-    </Container>
+    <div
+      style={{
+        background: "#f5f5f5"
+      }}
+    >
+      <Container>
+        <ChatList></ChatList>
+      </Container>
+    </div>
   );
 }
