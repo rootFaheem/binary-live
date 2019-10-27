@@ -8,7 +8,7 @@ const server = app.listen(8080, () => {
   console.log("server running at...", 8080);
 });
 
-const io = require("socket.io")(server);
+const io = require("./app/utils/socket").init(server);
 
 io.on("connection", socket => {
   console.log("new connection added to the list");
