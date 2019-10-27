@@ -80,10 +80,7 @@ class ChatArea extends Component {
     let { message } = this.state;
 
     const data = { userId: "UID-01", message };
-    let response = await axios.post(
-      "http://localhost:8080/api/chat/send-message",
-      data
-    );
+    await axios.post("http://localhost:8080/api/chat/send-message", data);
   };
 
   render() {
