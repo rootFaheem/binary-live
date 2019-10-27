@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
 import SendIcon from "@material-ui/icons/Send";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
 
 const styles = theme => ({
   root: {
@@ -16,7 +17,16 @@ const styles = theme => ({
   paper: {
     padding: "16px 8px",
     width: "100%",
-    minHeight: "70vh"
+    minHeight: "73vh",
+    maxHeight: "73vh",
+    overflow: "scroll"
+  },
+  groupName: {
+    padding: "10px 20px",
+    textAlign: "left",
+    background: "#f5f5f5",
+    display: "flex",
+    fontSize: "40px"
   },
   messageBox: {
     // position: "fixed",
@@ -24,7 +34,13 @@ const styles = theme => ({
     // top: "50vh"
   },
   msg: {
+    paddingTop: "15px"
+  },
+  msgLeft: {
     textAlign: "left"
+  },
+  msgRight: {
+    textAlign: "right"
   }
 });
 
@@ -62,12 +78,18 @@ class ChatArea extends Component {
       <Grid container item sm={12}>
         <Grid item sm={12}>
           <Paper className={classes.paper}>
+            <Paper className={classes.groupName}>
+              <ChevronLeft></ChevronLeft>
+              <Typography variant="h6" component="h6">
+                SpaceX Group
+              </Typography>
+            </Paper>
             {this.state.messagesList.map((msg, i) => (
               <Typography
                 key={i}
                 variant="h5"
                 component="h3"
-                className={classes.msg}
+                className={(classes.msgLeft, classes.msg)}
               >
                 {msg}
               </Typography>
