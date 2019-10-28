@@ -13,31 +13,36 @@ const registerUser = async (req, res) => {
     pass1,
     pass2
   };
+
+  console.log("value:", values);
+
   try {
-    await Joi.validate(
+    Joi.validate(
       values,
-      registerUserSchema,
-      { abortEarly: true },
+      {
+        abortEarly: true
+      },
       err => {
         if (err) {
-          res.status(422).json({
+          console.log("err:", err);
+          return res.status(422).json({
             success: false,
             message: err.message
           });
-        } else {
-          console.log("user.creating");
         }
+        console.log("user.creating");
+        return res.status(200).json({
+          success: true,
+          message: "you are no registered",
+          value
+        });
       }
     );
-
-    res.status(200).json({
-      success: true,
-      message: "you are no registered"
-    });
   } catch (err) {
     res.status(500).json({
       success: false,
-      error: "Server Error"
+      error: "Server Error",
+      err
     });
   }
 };
