@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 const SendMessageRoutes = require("./app/routes/sendMessage.routes");
+const AuthRoutes = require("./app/routes/auth.routes");
 
 let users = [];
 let connections = [];
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/auth", AuthRoutes);
 app.use("/api/chat", SendMessageRoutes);
 
 const server = app.listen(8080, () => {
