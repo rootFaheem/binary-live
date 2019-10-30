@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const SendMessageRoutes = require("./app/routes/sendMessage.routes");
 const AuthRoutes = require("./app/routes/auth.routes");
 
+const { PORT } = require("./configs/keys");
+
 let users = [];
 let connections = [];
 
@@ -24,8 +26,8 @@ app.use((req, res, next) => {
 app.use("/api/auth", AuthRoutes);
 app.use("/api/chat", SendMessageRoutes);
 
-const server = app.listen(8080, () => {
-  console.log("server running at...", 8080);
+const server = app.listen(PORT, () => {
+  console.log("server running at...", PORT);
 });
 
 const io = require("./app/utils/socket").init(server);
