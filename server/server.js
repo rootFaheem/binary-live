@@ -1,11 +1,12 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require("body-parser");
 
 const SendMessageRoutes = require("./app/routes/sendMessage.routes");
 const AuthRoutes = require("./app/routes/auth.routes");
 
-const { PORT } = require("./configs/keys");
+const { PORT, MONGODB_URI } = require("./configs/keys");
 
 let users = [];
 let connections = [];
@@ -25,6 +26,20 @@ app.use((req, res, next) => {
 
 app.use("/api/auth", AuthRoutes);
 app.use("/api/chat", SendMessageRoutes);
+
+mongoose
+  .connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("MongoDb conncected...");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const server = app.listen(PORT, () => {
   console.log("server running at...", PORT);
