@@ -17,6 +17,13 @@ const registerUser = async (req, res) => {
   console.log("value:", values);
 
   try {
+    if (pass1 !== pass2) {
+      return res.status(303).json({
+        success: "false",
+        errMsg: "password did not match"
+      });
+    }
+
     Joi.validate(
       values,
       {
