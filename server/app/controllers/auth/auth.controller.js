@@ -1,14 +1,18 @@
 const Joi = require("@hapi/joi");
 
+const UserModel = require("../../models/user.model");
+const bcrypt = require("bcryptjs");
+
 const { registerUserSchema } = require("./auth.validation");
 
 const registerUser = async (req, res) => {
   console.log("req.body", req.body);
 
-  const { userName, email, pass1, pass2 } = req.body;
+  const { name, email, pass1, pass2 } = req.body;
+  let hashPass = "";
 
   const values = {
-    userName,
+    name,
     email,
     pass1,
     pass2
@@ -17,12 +21,39 @@ const registerUser = async (req, res) => {
   console.log("value:", values);
 
   try {
-    if (pass1 !== pass2) {
-      return res.status(303).json({
-        success: "false",
-        errMsg: "password did not match"
-      });
-    }
+    UserModel.findOne({ email }).then(user => {
+      if (user) {
+        return res.status(303).json({
+          success: true,
+          message: "email is already registerd"
+        });
+      } else {
+
+
+        if (pass1 !== pass2) {
+          return res.status(303).json({
+            success: "false",
+            errMsg: "password did not match"
+          });
+        }
+
+        await bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err;
+
+            hashPass = hash;
+          });
+        });
+
+        const newUserModel = new UserModel({
+          name,
+          email,
+          password: hashPass
+        });
+
+        await newUserModel.save();
+      }
+    });
 
     Joi.validate(
       values,
