@@ -6,25 +6,25 @@ const bcrypt = require("bcryptjs");
 const { registerUserSchema } = require("./auth.validation");
 
 const registerUser = async (req, res) => {
-  const { name, email, pass1, pass2 } = req.body;
+  const { name, email, password1, password2 } = req.body;
   let hashPass = "";
 
   const values = {
     name,
     email,
-    pass1,
-    pass2
+    password1,
+    password2
   };
 
   try {
     UserModel.findOne({ email }).then(user => {
       if (user) {
         return res.status(303).json({
-          success: true,
-          message: "email is already registerd"
+          success: false,
+          errMsg: "email is already registerd"
         });
       } else {
-        if (pass1 !== pass2) {
+        if (password1 !== password2) {
           return res.status(303).json({
             success: "false",
             errMsg: "password did not match"
@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
         }
 
         bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(pass1, salt, async (err, hash) => {
+          bcrypt.hash(password1, salt, async (err, hash) => {
             if (err) throw err;
 
             hashPass = hash;
@@ -63,6 +63,4 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = {
-  registerUser
-};
+module.exports = registerUser;

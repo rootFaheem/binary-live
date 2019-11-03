@@ -16,11 +16,11 @@ const registerUserSchema = Joi.object().keys({
     .required()
     .error(new Error("email field is required")),
 
-  pass1: Joi.string()
+  password1: Joi.string()
     // .pattern(/^[a-zA-Z0-9]{3,30}$/)
     .required()
     .error(new Error("password 1 field is required")),
-  pass2: Joi.string()
+  password2: Joi.string()
     // .pattern(/^[a-zA-Z0-9]{3,30}$/)
     .required()
     .error(new Error("password 2 field is required"))
