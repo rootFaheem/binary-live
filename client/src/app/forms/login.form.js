@@ -48,18 +48,22 @@ const styles = theme => ({
 class SignIn extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    emailError: "",
+    passwordError: ""
   };
 
   emailChangedhandler = e => {
     this.setState({
-      email: e.target.value
+      email: e.target.value,
+      emailError: ""
     });
   };
 
   passwordChangedhandler = e => {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
+      passwordError: ""
     });
   };
 
@@ -67,6 +71,17 @@ class SignIn extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
+
+    if (email === "") {
+      return this.setState({
+        emailError: "email is required"
+      });
+    }
+    if (password === "") {
+      return this.setState({
+        passwordError: "password is required"
+      });
+    }
     const data = {
       email,
       password,
@@ -106,6 +121,7 @@ class SignIn extends Component {
               autoComplete="email"
               autoFocus
               onChange={this.emailChangedhandler}
+              helperText={this.state.emailError ? this.state.emailError : null}
             />
             <TextField
               variant="outlined"
@@ -118,6 +134,9 @@ class SignIn extends Component {
               id="password"
               autoComplete="current-password"
               onChange={this.passwordChangedhandler}
+              helperText={
+                this.state.passwordError ? this.state.passwordError : null
+              }
             />
 
             <Button
