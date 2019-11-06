@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { loginUserAction } from "../../../store/actions/auth.action";
+import { loginUserAction } from "../../store/actions/auth.action";
 
 const styles = theme => ({
   "@global": {
