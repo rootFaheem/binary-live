@@ -42,6 +42,9 @@ const styles = theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  error: {
+    color: "red"
   }
 });
 
@@ -121,7 +124,14 @@ class SignIn extends Component {
               autoComplete="email"
               autoFocus
               onChange={this.emailChangedhandler}
-              helperText={this.state.emailError ? this.state.emailError : null}
+              helperText={
+                this.state.emailError ? (
+                  <span className={classes.error}>
+                    {" "}
+                    {this.state.emailError}
+                  </span>
+                ) : null
+              }
             />
             <TextField
               variant="outlined"
@@ -135,7 +145,12 @@ class SignIn extends Component {
               autoComplete="current-password"
               onChange={this.passwordChangedhandler}
               helperText={
-                this.state.passwordError ? this.state.passwordError : null
+                this.state.passwordError ? (
+                  <span className={classes.error}>
+                    {" "}
+                    {this.state.passwordError}
+                  </span>
+                ) : null
               }
             />
 
