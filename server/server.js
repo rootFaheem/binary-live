@@ -11,7 +11,7 @@ const { PORT, MONGODB_URI } = require("./configs/keys");
 let users = [];
 let connections = [];
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
