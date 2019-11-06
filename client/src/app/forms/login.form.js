@@ -20,14 +20,21 @@ const styles = theme => ({
     }
   },
   paper: {
-    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
+    margin: 0,
+    position: "absolute",
+    top: "50%",
+    "-ms-transform": "translateY(-50%)",
+    transform: "translateY(-50%)",
+    border: "2px solid #eee",
+    padding: "50px 30px",
+    borderRadius: "8px"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: "#0080ff"
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -66,7 +73,8 @@ class SignIn extends Component {
       type: "login"
     };
 
-    this.props.loginUserAction(data);
+    console.log("data", data);
+    // this.props.loginUserAction(data);
   };
 
   render() {
@@ -116,8 +124,11 @@ class SignIn extends Component {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
               className={classes.submit}
+              style={{
+                background: "#0080ff",
+                color: "#fff"
+              }}
             >
               Sign In
             </Button>
