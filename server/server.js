@@ -2,6 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require("body-parser");
+const graphqlhttp = require("express-graphql");
+
+const graphqlSchema = require("./app/graphql/schema");
+const graphqlResolver = require("./app/graphql/resolvers");
 
 // const SendMessageRoutes = require("./app/routes/sendMessage.routes");
 // const AuthRoutes = require("./app/routes/auth.routes");
@@ -26,6 +30,16 @@ app.use((req, res, next) => {
 
 // app.use("/api/auth", AuthRoutes);
 // app.use("/api/chat", SendMessageRoutes);
+
+//  GraphQL config
+
+app.use(
+  "/graphql",
+  graphqlhttp({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver
+  })
+);
 
 mongoose
   .connect(MONGODB_URI, {
