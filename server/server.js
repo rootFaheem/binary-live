@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require("body-parser");
 
-const SendMessageRoutes = require("./app/routes/sendMessage.routes");
-const AuthRoutes = require("./app/routes/auth.routes");
+// const SendMessageRoutes = require("./app/routes/sendMessage.routes");
+// const AuthRoutes = require("./app/routes/auth.routes");
 
 const { PORT, MONGODB_URI } = require("./configs/keys");
 
@@ -24,8 +24,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/auth", AuthRoutes);
-app.use("/api/chat", SendMessageRoutes);
+// app.use("/api/auth", AuthRoutes);
+// app.use("/api/chat", SendMessageRoutes);
 
 mongoose
   .connect(MONGODB_URI, {
@@ -45,10 +45,10 @@ const server = app.listen(PORT, () => {
   console.log("server running at...", PORT);
 });
 
-const io = require("./app/utils/socket").init(server);
+// const io = require("./app/utils/socket").init(server);
 
-io.on("connection", socket => {
-  console.log("new connection added to the list");
-  connections.push(socket);
-  console.log("current list is:", connections.length);
-});
+// io.on("connection", socket => {
+//   console.log("new connection added to the list");
+//   connections.push(socket);
+//   console.log("current list is:", connections.length);
+// });
