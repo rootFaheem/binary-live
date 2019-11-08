@@ -2,16 +2,24 @@ const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
 
-type TestData {
-    text: String!
-    views: Int!
+type User {
+    _id: ID!
+    name: String!
+    password: String!
+    role: String!
 }
 
-type RootQuery {
-    hello: TestData 
+input UserInputData {
+    email: String!
+    name: String!
+    password: String!
+}
+
+type RootMutation {
+    createUser(userInput: UserInputData): User!
 }
 
 schema {
-    query: RootQuery
+    query: RootMutation
 }
 `);
