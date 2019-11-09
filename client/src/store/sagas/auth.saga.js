@@ -8,22 +8,22 @@ import {
 import * as types from "../action.types";
 
 export function* loginSaga(payload) {
-  if (payload.user.type === "login") {
-    const response = yield call(loginUserService, payload);
+  // if (payload.user.type === "login") {
+  const response = yield call(loginUserService, payload);
 
-    if (response.isLoggedIn) {
-      yield put({ type: types.LOGIN_USER_SUCCESS, response });
-    } else if (response.success === false) {
-      yield put({ type: types.LOGIN_USER_ERROR, response });
-    }
-  } else if (payload.user.type === "authCheck") {
-    try {
-      const response = yield call(authCheckService, payload);
-      yield put({ type: types.LOGIN_USER_SUCCESS, response });
-    } catch (error) {
-      yield put({ type: types.LOGIN_USER_ERROR, error });
-    }
+  if (response.isLoggedIn) {
+    yield put({ type: types.LOGIN_USER_SUCCESS, response });
+  } else if (response.success === false) {
+    yield put({ type: types.LOGIN_USER_ERROR, response });
   }
+  // } else if (payload.user.type === "authCheck") {
+  //   try {
+  //     const response = yield call(authCheckService, payload);
+  //     yield put({ type: types.LOGIN_USER_SUCCESS, response });
+  //   } catch (error) {
+  //     yield put({ type: types.LOGIN_USER_ERROR, error });
+  //   }
+  // }
 }
 
 export function* logoutUserSaga() {

@@ -50,10 +50,20 @@ const styles = theme => ({
 
 class SignIn extends Component {
   state = {
+    name: "",
     email: "",
     password: "",
+
+    nameError: "",
     emailError: "",
     passwordError: ""
+  };
+
+  nameChangedhandler = e => {
+    this.setState({
+      name: e.target.value,
+      nameError: ""
+    });
   };
 
   emailChangedhandler = e => {
@@ -73,7 +83,7 @@ class SignIn extends Component {
   signInHandler = e => {
     e.preventDefault();
 
-    const { email, password, name } = this.state;
+    const { name, email, password } = this.state;
 
     // if (email === "") {
     //   return this.setState({
@@ -97,14 +107,18 @@ class SignIn extends Component {
         createUser: (userInput: {
           name: "${name}", 
           email: "${email}", 
-          password: "${password}"
-        })
+          password: "${password}",
+          type: "login"
+        }) {
+          _id
+          email
+        }
       }
       `
     };
 
     console.log("data", graphqlQuery);
-    this.props.loginUserAction(graphqlQuery);
+    this.props.loginUserAction(JSON.stringify(graphqlQuery));
   };
 
   render() {
@@ -130,6 +144,24 @@ class SignIn extends Component {
               margin="normal"
               required
               fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              onChange={this.nameChangedhandler}
+              helperText={
+                this.state.nameError ? (
+                  <span className={classes.error}> {this.state.nameError}</span>
+                ) : null
+              }
+            />
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
               id="email"
               label="Email Address"
               name="email"
@@ -145,6 +177,7 @@ class SignIn extends Component {
                 ) : null
               }
             />
+
             <TextField
               variant="outlined"
               margin="normal"

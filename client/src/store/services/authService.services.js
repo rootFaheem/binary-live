@@ -12,9 +12,12 @@ export const authCheckService = () => {
 };
 
 export const loginUserService = request => {
+  console.log("API Hit::", request.data);
+
   return axios
-    .post("/api/auth/login", request.user)
+    .post("/graphql", request.user)
     .then(response => {
+      console.log("response from server::", response);
       return response.data;
     })
     .catch(err => {
