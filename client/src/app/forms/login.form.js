@@ -73,26 +73,38 @@ class SignIn extends Component {
   signInHandler = e => {
     e.preventDefault();
 
-    const { email, password } = this.state;
+    const { email, password, name } = this.state;
 
-    if (email === "") {
-      return this.setState({
-        emailError: "email is required"
-      });
-    }
-    if (password === "") {
-      return this.setState({
-        passwordError: "password is required"
-      });
-    }
-    const data = {
-      email,
-      password,
-      type: "login"
+    // if (email === "") {
+    //   return this.setState({
+    //     emailError: "email is required"
+    //   });
+    // }
+    // if (password === "") {
+    //   return this.setState({
+    //     passwordError: "password is required"
+    //   });
+    // }
+    // const data = {
+    //   email,
+    //   password,
+    //   type: "login"
+    // };
+
+    const graphqlQuery = {
+      query: `
+      mutation {
+        createUser: (userInput: {
+          name: "${name}", 
+          email: "${email}", 
+          password: "${password}"
+        })
+      }
+      `
     };
 
-    console.log("data", data);
-    // this.props.loginUserAction(data);
+    console.log("data", graphqlQuery);
+    this.props.loginUserAction(graphqlQuery);
   };
 
   render() {
