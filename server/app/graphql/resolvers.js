@@ -10,6 +10,9 @@ module.exports = {
     // const email = userInput.email;
 
     // Validations for email, password and name
+
+    console.log("userInput:", userInput);
+    console.log("req:", req);
     const errors = [];
     if (!validator.isEmail(userInput.email)) {
       errors.push({
@@ -48,8 +51,8 @@ module.exports = {
     });
 
     // const createdUser = await user.save();
-    console.log("createdUser", createdUser);
+    return console.log("createdUser", createdUser);
 
-    return { ...createdUser._doc, _id: createdUser._id.toString() };
+    // return { ...createdUser._doc, _id: createdUser._id.toString() };
   }
 };

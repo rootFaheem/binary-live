@@ -107,8 +107,7 @@ class SignIn extends Component {
         createUser: (userInput: {
           name: "${name}", 
           email: "${email}", 
-          password: "${password}",
-          type: "login"
+          password: "${password}"
         }) {
           _id
           email

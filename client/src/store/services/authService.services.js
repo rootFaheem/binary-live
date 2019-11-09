@@ -12,8 +12,6 @@ export const authCheckService = () => {
 };
 
 export const loginUserService = request => {
-  console.log("API Hit::", request.data);
-
   return axios
     .post("/graphql", request.user)
     .then(response => {
