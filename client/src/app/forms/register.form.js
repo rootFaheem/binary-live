@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { loginUserAction } from "../../store/actions/auth.action";
+import { registerUserAction } from "../../store/actions/auth.action";
 
 const styles = theme => ({
   "@global": {
@@ -121,6 +121,7 @@ class Register extends Component {
   };
 
   render() {
+    console.log("_auth", this.props._auth);
     const { classes } = this.props;
 
     return (
@@ -217,15 +218,15 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = ({ loginReducer }) => {
+const mapStateToProps = ({ registerReducer }) => {
   return {
-    _auth: loginReducer
+    _auth: registerReducer
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { loginUserAction }
+    { registerUserAction }
   )(withStyles(styles)(Register))
 );
