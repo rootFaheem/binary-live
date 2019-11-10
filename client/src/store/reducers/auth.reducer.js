@@ -1,7 +1,8 @@
 import * as types from "../action.types";
 
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
+  isRegistered: false
 };
 
 export const registerReducer = (state = initialState, action) => {

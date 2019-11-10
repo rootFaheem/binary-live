@@ -117,7 +117,7 @@ class Register extends Component {
     };
 
     console.log("data", graphqlQuery);
-    this.props.loginUserAction(JSON.stringify(graphqlQuery));
+    this.props.registerUserAction(JSON.stringify(graphqlQuery));
   };
 
   render() {

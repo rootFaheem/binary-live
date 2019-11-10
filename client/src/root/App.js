@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 import AppBar from "../app/navBar/navBar";
+import Register from "../app/forms/register.form";
 import Login from "../app/forms/login.form";
 
 class App extends Component {
@@ -11,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <AppBar></AppBar>
-        <Login></Login>
+        <Register></Register>
         {/* <Landing></Landing> */}
       </div>
     );
