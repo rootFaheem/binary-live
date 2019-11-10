@@ -50,20 +50,11 @@ const styles = theme => ({
 
 class SignIn extends Component {
   state = {
-    name: "",
     email: "",
     password: "",
 
-    nameError: "",
     emailError: "",
     passwordError: ""
-  };
-
-  nameChangedhandler = e => {
-    this.setState({
-      name: e.target.value,
-      nameError: ""
-    });
   };
 
   emailChangedhandler = e => {
@@ -83,13 +74,8 @@ class SignIn extends Component {
   signInHandler = e => {
     e.preventDefault();
 
-    const { name, email, password } = this.state;
+    const { email, password } = this.state;
 
-    if (name === "") {
-      return this.setState({
-        nameError: "name is required"
-      });
-    }
     if (email === "") {
       return this.setState({
         emailError: "email is required"
@@ -105,7 +91,6 @@ class SignIn extends Component {
       query: `
       mutation {
         createUser(userInput: {email: "${email}",
-                                name: "${name}", 
                                 password: "${password}"}) {
           _id
           name
@@ -131,31 +116,13 @@ class SignIn extends Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log In
           </Typography>
           <form
             className={classes.form}
             noValidate
             onSubmit={this.signInHandler}
           >
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Name"
-              name="name"
-              autoComplete="name"
-              autoFocus
-              onChange={this.nameChangedhandler}
-              helperText={
-                this.state.nameError ? (
-                  <span className={classes.error}> {this.state.nameError}</span>
-                ) : null
-              }
-            />
-
             <TextField
               variant="outlined"
               margin="normal"
@@ -208,7 +175,7 @@ class SignIn extends Component {
                 color: "#fff"
               }}
             >
-              Sign In
+              Log In
             </Button>
           </form>
         </div>
