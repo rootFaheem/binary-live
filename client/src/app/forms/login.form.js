@@ -104,14 +104,14 @@ class SignIn extends Component {
     const graphqlQuery = {
       query: `
       mutation {
-        createUser: (userInput: {
-          name: "${name}", 
-          email: "${email}", 
-          password: "${password}"
-        }) {
+        createUser(userInput: {email: "jabba0@gmail.com",
+                                name: "Jabba", 
+                                password: "jabba1234"}) {
           _id
+          name
           email
         }
+        
       }
       `
     };

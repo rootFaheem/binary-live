@@ -13,7 +13,11 @@ export const authCheckService = () => {
 
 export const loginUserService = request => {
   return axios
-    .post("/graphql", request.user)
+    .post("/graphql", request.user, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
     .then(response => {
       console.log("response from server::", response);
       return response.data;

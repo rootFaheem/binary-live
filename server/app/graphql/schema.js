@@ -6,7 +6,7 @@ type User {
     _id: ID!
     name: String!
     email: String!
-    password: String!
+    password: String
 }
 
 input UserInputData {
