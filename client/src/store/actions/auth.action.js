@@ -1,15 +1,22 @@
 import * as types from "../action.types";
 
-export const loginUserAction = user => {
+export const registerUserAction = data => {
   return {
-    type: types.LOGIN_USER,
-    user
+    type: types.REGISTER_USER,
+    data
   };
 };
 
-export const logOutUserAction = user => {
+export const loginUserAction = data => {
+  return {
+    type: types.LOGIN_USER,
+    data
+  };
+};
+
+export const logOutUserAction = data => {
   return {
     type: types.LOG_OUT_USER,
-    user
+    data
   };
 };
