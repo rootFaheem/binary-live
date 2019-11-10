@@ -7,9 +7,6 @@ const graphqlhttp = require("express-graphql");
 const graphqlSchema = require("./app/graphql/schema");
 const graphqlResolver = require("./app/graphql/resolvers");
 
-// const SendMessageRoutes = require("./app/routes/sendMessage.routes");
-// const AuthRoutes = require("./app/routes/auth.routes");
-
 const { PORT, MONGODB_URI } = require("./configs/keys");
 
 let users = [];
@@ -32,11 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use("/api/auth", AuthRoutes);
-// app.use("/api/chat", SendMessageRoutes);
-
-//  GraphQL config
-
+//  GraphQL config/route hanlder
 app.use(
   "/graphql",
   graphqlhttp({

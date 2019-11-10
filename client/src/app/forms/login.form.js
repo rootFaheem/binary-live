@@ -85,28 +85,23 @@ class SignIn extends Component {
 
     const { name, email, password } = this.state;
 
-    // if (email === "") {
-    //   return this.setState({
-    //     emailError: "email is required"
-    //   });
-    // }
-    // if (password === "") {
-    //   return this.setState({
-    //     passwordError: "password is required"
-    //   });
-    // }
-    // const data = {
-    //   email,
-    //   password,
-    //   type: "login"
-    // };
+    if (email === "") {
+      return this.setState({
+        emailError: "email is required"
+      });
+    }
+    if (password === "") {
+      return this.setState({
+        passwordError: "password is required"
+      });
+    }
 
     const graphqlQuery = {
       query: `
       mutation {
-        createUser(userInput: {email: "jabba0@gmail.com",
-                                name: "Jabba", 
-                                password: "jabba1234"}) {
+        createUser(userInput: {email: "${email}",
+                                name: "${name}", 
+                                password: "${password}"}) {
           _id
           name
           email
