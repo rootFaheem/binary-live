@@ -23,13 +23,13 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: 0,
-    position: "absolute",
-    top: "50%",
+    margin: "0px",
+    // position: "absolute",
+    top: "100%",
     "-ms-transform": "translateY(-50%)",
-    transform: "translateY(-50%)",
-    border: "2px solid #eee",
-    padding: "50px 30px",
+    transform: "translateY(20%)",
+    // border: "2px solid #eee",
+    padding: "50px 10px",
     borderRadius: "8px"
   },
   avatar: {
@@ -38,7 +38,7 @@ const styles = theme => ({
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(2)
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
@@ -85,6 +85,11 @@ class SignIn extends Component {
 
     const { name, email, password } = this.state;
 
+    if (name === "") {
+      return this.setState({
+        nameError: "name is required"
+      });
+    }
     if (email === "") {
       return this.setState({
         emailError: "email is required"
