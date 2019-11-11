@@ -58,19 +58,25 @@ module.exports = {
   },
 
   userLogin: async function({ userInput }, req) {
+    const { email, password } = userInput;
+
+    let resData = "";
+    console.log("email:", email);
+    console.log("password:", password);
     const errors = [];
-    if (!validator.isEmail(userInput.email)) {
+    if (!validator.isEmail(email)) {
       errors.push({
         errMsg: "email is not valid"
       });
     }
 
-    if (validator.isEmpty(userInput.password)) {
+    if (validator.isEmpty(password)) {
       errors.push({
         errMsg: "Password is required field"
       });
     }
-    let user = await UserModel.find({ email: userInput.email });
+    let res = await UserModel.find({ email });
+    let user = res[0];
 
     if (!user) {
       errors.push({
@@ -85,31 +91,47 @@ module.exports = {
       throw error;
     }
 
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        const { id, name, email } = user;
-        const payload = {
-          id,
+    let isMatch = await bcrypt.compare(password, user.password);
+
+    let jabba = "";
+
+    if (isMatch) {
+      const { name, email } = user;
+      const payload = {
+        name,
+        email
+      };
+
+      jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" }, (err, token) => {
+        if (err) {
+          console.log("err", err);
+          const error = new Error("Failed while signin");
+          error.data = errors;
+          error.code = 422;
+          throw error;
+        }
+
+        // req.response
+        // .cookies("token", token, {
+        //   // Expires in One Week
+        //   maxAge: 1000 * 60 * 60 * 24 * 7
+        // })
+
+        jabba = {
+          _id: user._id.toString(),
           name,
-          email
+          email,
+          isLoggedIn: "true"
         };
-
-        jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" }, (err, token) => {
-          if (err) {
-            const error = new Error("Failed while signin");
-            error.data = errors;
-            error.code = 422;
-            throw error;
-          }
-          return req.response.cookies("token", token, {
-            // Expires in One Week
-            maxAge: 1000 * 60 * 60 * 24 * 7
-          });
-        });
-      }
-    });
-
-    return console.log("req::", userInput);
+        console.log("data: ", jabba);
+      });
+    } else {
+      const error = new Error("Password Incorrect");
+      error.data = errors;
+      error.code = 422;
+      throw error;
+    }
+    return jabba;
   },
 
   authCheckUser: async function({ userInput }, req) {

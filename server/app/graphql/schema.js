@@ -39,7 +39,7 @@ input LoginData {
 }
 
 type RootQuery {
-    userLogin(userInput: LoginData): LoginRes!
+    userLogin(userInput: LoginData): LoginRes
     authCheckUser(userInput: AuthCheckData): AuthCheckRes!
 }
 
