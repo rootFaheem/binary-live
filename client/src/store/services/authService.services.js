@@ -1,16 +1,5 @@
 import axios from "axios";
 
-export const authCheckService = () => {
-  return axios
-    .get("/api/authcheck")
-    .then(response => {
-      return response.data;
-    })
-    .catch(err => {
-      return err;
-    });
-};
-
 export const registerUserService = request => {
   return axios
     .post("/graphql", request.data, {
@@ -40,6 +29,17 @@ export const loginUserService = request => {
     })
     .catch(err => {
       return err.response.data;
+    });
+};
+
+export const authCheckService = () => {
+  return axios
+    .post("/graphql")
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => {
+      return err;
     });
 };
 

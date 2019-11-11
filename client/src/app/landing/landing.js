@@ -2,8 +2,9 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 
-import RegisterForm from "../forms/register.form";
+import Home from "./home/home";
 import LoginForm from "../forms/login.form";
+import RegisterForm from "../forms/register.form";
 
 import Container from "@material-ui/core/Container";
 import AppBar from "../navBar/navBar";
@@ -14,10 +15,11 @@ export default function landing() {
     <div>
       <AppBar></AppBar>
       <Switch>
-        <Route path="/register" component={RegisterForm}></Route>
-        <Route path="/login" component={LoginForm}></Route>
+        <Route path="/" exact component={Home}></Route>
+        <Route path="/register" exact component={RegisterForm}></Route>
+        <Route path="/login" exact component={LoginForm}></Route>
+        <Route path="/chatlist" exact component={ChatList}></Route>
       </Switch>
-      <Container>{/* <ChatList></ChatList> */}</Container>
     </div>
   );
 }

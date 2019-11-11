@@ -14,6 +14,12 @@ export const loginUserAction = data => {
   };
 };
 
+export const authCheckAction = () => {
+  return {
+    type: types.AUTH_CHECK
+  };
+};
+
 export const logOutUserAction = data => {
   return {
     type: types.LOG_OUT_USER,

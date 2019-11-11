@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,6 +18,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+
+import { authCheckAction } from "../../store/actions/auth.action";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -82,7 +87,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -226,4 +231,17 @@ export default function PrimarySearchAppBar() {
       </Grid>
     </div>
   );
-}
+};
+
+const mapStateToProps = ({ authCheckReducer }) => {
+  return {
+    _auth: authCheckReducer
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { authCheckAction }
+  )(PrimarySearchAppBar)
+);
