@@ -15,8 +15,32 @@ input UserInputData {
     password: String!
 }
 
+input AuthCheckData {
+    type: String
+}
+
+type AuthCheckRes {
+    _id: ID!
+    name: String!
+    email: String!
+    isLoggedIn: String!
+}
+
+type LoginRes {
+    _id: ID!
+    name: String!
+    email: String!
+    isLoggedIn: String!
+}
+
+input LoginData {
+    email: String!
+    password: String!
+}
+
 type RootQuery {
-    hello: String!
+    userLogin(userInput: LoginData): LoginRes!
+    authCheckUser(userInput: AuthCheckData): AuthCheckRes!
 }
 
 type RootMutation {
