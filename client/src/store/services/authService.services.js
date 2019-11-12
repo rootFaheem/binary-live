@@ -8,7 +8,6 @@ export const registerUserService = request => {
       }
     })
     .then(response => {
-      console.log("response from server::", response);
       return response.data;
     })
     .catch(err => {
@@ -17,6 +16,7 @@ export const registerUserService = request => {
 };
 
 export const loginUserService = request => {
+  console.log("request.data", request);
   return axios
     .post("/graphql", request.data, {
       headers: {
@@ -24,7 +24,6 @@ export const loginUserService = request => {
       }
     })
     .then(response => {
-      console.log("response from server::", response);
       return response.data;
     })
     .catch(err => {
@@ -33,7 +32,6 @@ export const loginUserService = request => {
 };
 
 export const authCheckService = request => {
-  console.log("request.data", request.data);
   return axios
     .post("/graphql", request.data, {
       headers: {

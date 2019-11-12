@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { BrowserRouter } from "react-router-dom";
 
-import Landing from "../app/landing/landing";
+import IndexRoute from "../app/routes/index.routes";
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Landing></Landing>
+          <IndexRoute></IndexRoute>
         </BrowserRouter>
       </div>
     );

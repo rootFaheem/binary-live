@@ -89,7 +89,7 @@ class SignIn extends Component {
 
     const graphqlQuery = {
       query: `{
-        userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
+        userLogin(email: "${email}", password: "${password}") {
           isLoggedIn
           userId
           name
@@ -99,6 +99,7 @@ class SignIn extends Component {
       }`
     };
 
+    console.log("graphqlQuery:", graphqlQuery);
     this.props.loginUserAction(JSON.stringify(graphqlQuery));
   };
 
