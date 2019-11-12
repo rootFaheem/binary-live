@@ -27,10 +27,11 @@ type AuthCheckRes {
 }
 
 type AuthData {
+    userId: ID!
     isLoggedIn: Boolean!
-    token: String!
     name: String!
     email: String!
+    token: String!
 }
 
 type RootQuery {

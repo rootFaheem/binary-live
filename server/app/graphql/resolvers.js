@@ -58,8 +58,6 @@ module.exports = {
   },
 
   userLogin: async function({ email, password }, req) {
-    console.log("email:", email);
-    console.log("password:", password);
     const errors = [];
     if (!validator.isEmail(email)) {
       errors.push({
@@ -95,7 +93,7 @@ module.exports = {
       throw error;
     }
 
-    const token = jwt.sign(
+    const token = await jwt.sign(
       {
         userId: user._id.toString(),
         email: user.email
@@ -104,7 +102,18 @@ module.exports = {
       { expiresIn: "1h" }
     );
 
-    return { token, userId: user._id.toString() };
+    req.res.cookie("token", token, {
+      // httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 1
+    });
+
+    return {
+      token,
+      userId: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      isLoggedIn: true
+    };
   },
 
   authCheckUser: async function({ userInput }, req) {
