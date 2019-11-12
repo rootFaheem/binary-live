@@ -24,6 +24,7 @@ export const loginUserService = request => {
       }
     })
     .then(response => {
+      console.log("res.data", response);
       return response.data;
     })
     .catch(err => {

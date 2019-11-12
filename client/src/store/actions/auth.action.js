@@ -7,16 +7,17 @@ export const registerUserAction = data => {
   };
 };
 
-export const loginUserAction = data => {
+export const authCheckAction = data => {
   return {
-    type: types.LOGIN_USER,
+    type: types.AUTH_CHECK,
     data
   };
 };
 
-export const authCheckAction = data => {
+export const loginUserAction = data => {
+  console.log("data:", data);
   return {
-    type: types.AUTH_CHECK,
+    type: types.LOGIN_USER,
     data
   };
 };

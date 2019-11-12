@@ -11,7 +11,10 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import { loginUserAction } from "../../store/actions/auth.action";
+import {
+  loginUserAction,
+  authCheckAction
+} from "../../store/actions/auth.action";
 
 const styles = theme => ({
   "@global": {
@@ -57,6 +60,22 @@ class SignIn extends Component {
     passwordError: ""
   };
 
+  componentDidMount() {
+    // const graphqlQuery = {
+    //   query: `{
+    //     userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
+    //       isLoggedIn
+    //       userId
+    //       name
+    //       email
+    //       token
+    //     }
+    //   }`
+    // };
+    // console.log("graphqlQuery:", graphqlQuery);
+    // this.props.loginUserAction(JSON.stringify(graphqlQuery));
+  }
+
   emailChangedhandler = e => {
     this.setState({
       email: e.target.value,
@@ -74,22 +93,22 @@ class SignIn extends Component {
   signInHandler = e => {
     e.preventDefault();
 
-    const { email, password } = this.state;
+    // const { email, password } = this.state;
 
-    if (email === "") {
-      return this.setState({
-        emailError: "email is required"
-      });
-    }
-    if (password === "") {
-      return this.setState({
-        passwordError: "password is required"
-      });
-    }
+    // if (email === "") {
+    //   return this.setState({
+    //     emailError: "email is required"
+    //   });
+    // }
+    // if (password === "") {
+    //   return this.setState({
+    //     passwordError: "password is required"
+    //   });
+    // }
 
     const graphqlQuery = {
       query: `{
-        userLogin(email: "${email}", password: "${password}") {
+        userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
           isLoggedIn
           userId
           name

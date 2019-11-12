@@ -25,6 +25,7 @@ export const registerReducer = (state = initialState, action) => {
 export const loginReducer = (state = initialState, action) => {
   const response = action.response;
 
+  console.log("response", response);
   switch (action.type) {
     case types.LOGIN_USER_SUCCESS:
       if (response.isLoggedIn === true) {
@@ -32,7 +33,7 @@ export const loginReducer = (state = initialState, action) => {
       }
       return state;
     case types.LOGIN_USER_ERROR:
-      return response;
+      return { ...state, response };
 
     default:
       return state;
