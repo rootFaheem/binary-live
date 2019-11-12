@@ -96,6 +96,7 @@ module.exports = {
     const token = await jwt.sign(
       {
         userId: user._id.toString(),
+        name: user.name,
         email: user.email
       },
       SECRET_KEY,
@@ -103,33 +104,37 @@ module.exports = {
     );
 
     req.res.cookie("token", token, {
-      // httpOnly: true,
+      httpOnly: true,
       maxAge: 1000 * 60 * 60 * 1
     });
 
     return {
+      isLoggedIn: true,
       token,
       userId: user._id.toString(),
       name: user.name,
-      email: user.email,
-      isLoggedIn: true
+      email: user.email
     };
   },
 
-  authCheckUser: async function({ userInput }, req) {
+  authCheckUser: async function(args, req) {
     if (!req.cookies.token) {
-      return res.sendStatus(403);
+      const error = new Error("Unauthorized");
+      error.code = 401;
+      throw error;
     }
 
     const { token } = req.cookies;
-    const decoded = jwt.verify(token, TOKEN_KEY, { algorithms: ["HS256"] });
+    const decoded = jwt.verify(token, SECRET_KEY, { algorithms: ["HS256"] });
 
-    return req.response.json({
-      success: true,
-      isLoggedIn: true,
+    const authCheckRes = {
       authCheck: true,
+      isLoggedIn: true,
+      userId: decoded.userId,
       name: decoded.name,
       email: decoded.email
-    });
+    };
+
+    return authCheckRes;
   }
 };

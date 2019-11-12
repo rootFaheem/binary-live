@@ -15,20 +15,18 @@ input UserInputData {
     password: String!
 }
 
-input AuthCheckData {
-    type: String
-}
 
 type AuthCheckRes {
-    _id: ID!
+    isLoggedIn: Boolean!
+    authCheck: Boolean!
+    userId: ID!
     name: String!
     email: String!
-    isLoggedIn: String!
 }
 
 type AuthData {
-    userId: ID!
     isLoggedIn: Boolean!
+    userId: ID!
     name: String!
     email: String!
     token: String!
@@ -36,7 +34,7 @@ type AuthData {
 
 type RootQuery {
     userLogin(email: String!, password: String!): AuthData
-    authCheckUser(userInput: AuthCheckData): AuthCheckRes!
+    authCheckUser(type: String): AuthCheckRes!
 }
 
 type RootMutation {
