@@ -88,20 +88,17 @@ class SignIn extends Component {
     }
 
     const graphqlQuery = {
-      query: `
-      mutation {
-        createUser(userInput: {email: "${email}",
-                                password: "${password}"}) {
-          _id
+      query: `{
+        userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
+          isLoggedIn
+          userId
           name
           email
+          token
         }
-        
-      }
-      `
+      }`
     };
 
-    console.log("data", graphqlQuery);
     this.props.loginUserAction(JSON.stringify(graphqlQuery));
   };
 
@@ -191,8 +188,5 @@ const mapStateToProps = ({ loginReducer }) => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { loginUserAction }
-  )(withStyles(styles)(SignIn))
+  connect(mapStateToProps, { loginUserAction })(withStyles(styles)(SignIn))
 );

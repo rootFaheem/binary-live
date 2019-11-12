@@ -14,9 +14,10 @@ export const loginUserAction = data => {
   };
 };
 
-export const authCheckAction = () => {
+export const authCheckAction = data => {
   return {
-    type: types.AUTH_CHECK
+    type: types.AUTH_CHECK,
+    data
   };
 };
 

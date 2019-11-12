@@ -118,6 +118,8 @@ module.exports = {
   },
 
   authCheckUser: async function(args, req) {
+    console.log("api hit", args);
+
     if (!req.cookies.token) {
       const error = new Error("Unauthorized");
       error.code = 401;

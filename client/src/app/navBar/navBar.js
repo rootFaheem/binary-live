@@ -42,7 +42,19 @@ const styles = theme => ({
 
 class PrimarySearchAppBar extends Component {
   componentDidMount = () => {
-    this.props.authCheckAction();
+    const graphqlQuery = {
+      query: `{
+      authCheckUser(type:"authCheck") {
+        isLoggedIn
+        authCheck
+        userId
+        name
+        email
+      }
+    }`
+    };
+
+    this.props.authCheckAction(JSON.stringify(graphqlQuery));
   };
 
   render() {
@@ -129,8 +141,7 @@ const mapStateToProps = ({ authCheckReducer }) => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { authCheckAction }
-  )(withStyles(styles)(PrimarySearchAppBar))
+  connect(mapStateToProps, { authCheckAction })(
+    withStyles(styles)(PrimarySearchAppBar)
+  )
 );

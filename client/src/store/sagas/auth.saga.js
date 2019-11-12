@@ -37,10 +37,10 @@ export function* loginSaga(payload) {
   // }
 }
 
-export function* authCheckSaga() {
-  const response = yield call(authCheckService);
-
-  if (response.isLoggedIn) {
+export function* authCheckSaga(payload) {
+  const response = yield call(authCheckService, payload);
+  console.log("response", response.data.authCheckUser);
+  if (response.data.authCheckUser.authCheck) {
     yield put({ type: types.AUTH_CHECK_SUCCESS, response });
   } else if (response.success === false) {
     yield put({ type: types.AUTH_CHECK_ERROR, response });

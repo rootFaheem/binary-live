@@ -116,12 +116,11 @@ class Register extends Component {
       `
     };
 
-    console.log("data", graphqlQuery);
     this.props.registerUserAction(JSON.stringify(graphqlQuery));
   };
 
   render() {
-    console.log("_auth", this.props._auth);
+    console.log("_auth::", this.props._auth);
     const { classes } = this.props;
 
     return (
@@ -225,8 +224,5 @@ const mapStateToProps = ({ registerReducer }) => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    { registerUserAction }
-  )(withStyles(styles)(Register))
+  connect(mapStateToProps, { registerUserAction })(withStyles(styles)(Register))
 );

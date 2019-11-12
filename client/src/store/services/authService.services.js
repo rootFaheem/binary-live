@@ -32,9 +32,10 @@ export const loginUserService = request => {
     });
 };
 
-export const authCheckService = () => {
+export const authCheckService = request => {
+  console.log("request.data", request.data);
   return axios
-    .post("/graphql", {
+    .post("/graphql", request.data, {
       headers: {
         "Content-Type": "application/json"
       }
