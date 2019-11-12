@@ -26,20 +26,15 @@ type AuthCheckRes {
     isLoggedIn: String!
 }
 
-type LoginRes {
-    _id: ID!
+type AuthData {
+    isLoggedIn: Boolean!
+    token: String!
     name: String!
     email: String!
-    isLoggedIn: String!
-}
-
-input LoginData {
-    email: String!
-    password: String!
 }
 
 type RootQuery {
-    userLogin(userInput: LoginData): LoginRes
+    userLogin(email: String!, password: String!): AuthData
     authCheckUser(userInput: AuthCheckData): AuthCheckRes!
 }
 

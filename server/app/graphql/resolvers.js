@@ -57,10 +57,7 @@ module.exports = {
     return { ...createdUser._doc, _id: createdUser._id.toString() };
   },
 
-  userLogin: async function({ userInput }, req) {
-    const { email, password } = userInput;
-
-    let resData = "";
+  userLogin: async function({ email, password }, req) {
     console.log("email:", email);
     console.log("password:", password);
     const errors = [];
@@ -75,15 +72,6 @@ module.exports = {
         errMsg: "Password is required field"
       });
     }
-    let res = await UserModel.find({ email });
-    let user = res[0];
-
-    if (!user) {
-      errors.push({
-        errMsg: "user not found, please register first"
-      });
-    }
-
     if (errors.length > 0) {
       const error = new Error("Invalid input.");
       error.data = errors;
@@ -91,47 +79,32 @@ module.exports = {
       throw error;
     }
 
-    let isMatch = await bcrypt.compare(password, user.password);
+    let user = await UserModel.find({ email }).then(userData => userData[0]);
 
-    let jabba = "";
-
-    if (isMatch) {
-      const { name, email } = user;
-      const payload = {
-        name,
-        email
-      };
-
-      jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" }, (err, token) => {
-        if (err) {
-          console.log("err", err);
-          const error = new Error("Failed while signin");
-          error.data = errors;
-          error.code = 422;
-          throw error;
-        }
-
-        // req.response
-        // .cookies("token", token, {
-        //   // Expires in One Week
-        //   maxAge: 1000 * 60 * 60 * 24 * 7
-        // })
-
-        jabba = {
-          _id: user._id.toString(),
-          name,
-          email,
-          isLoggedIn: "true"
-        };
-        console.log("data: ", jabba);
-      });
-    } else {
-      const error = new Error("Password Incorrect");
-      error.data = errors;
-      error.code = 422;
+    if (!user) {
+      const error = new Error("user not found, please register first");
+      error.code = 401;
       throw error;
     }
-    return jabba;
+
+    let isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      const error = new Error("Password incorrect");
+      error.code = 401;
+      throw error;
+    }
+
+    const token = jwt.sign(
+      {
+        userId: user._id.toString(),
+        email: user.email
+      },
+      SECRET_KEY,
+      { expiresIn: "1h" }
+    );
+
+    return { token, userId: user._id.toString() };
   },
 
   authCheckUser: async function({ userInput }, req) {
