@@ -19,10 +19,9 @@ export function* registerSaga(payload) {
 }
 
 export function* loginSaga(payload) {
-  console.log("payload login:", payload);
   const response = yield call(loginUserService, payload);
   console.log("res login:", response);
-  if (response.data) {
+  if (response.data.userLogin.isLoggedIn) {
     yield put({
       type: types.LOGIN_USER_SUCCESS,
       response: response.data

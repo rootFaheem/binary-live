@@ -15,7 +15,6 @@ export const authCheckAction = data => {
 };
 
 export const loginUserAction = data => {
-  console.log("data:", data);
   return {
     type: types.LOGIN_USER,
     data

@@ -16,7 +16,6 @@ export const registerUserService = request => {
 };
 
 export const loginUserService = request => {
-  console.log("request.data", request);
   return axios
     .post("/graphql", request.data, {
       headers: {
@@ -24,7 +23,6 @@ export const loginUserService = request => {
       }
     })
     .then(response => {
-      console.log("res.data", response);
       return response.data;
     })
     .catch(err => {

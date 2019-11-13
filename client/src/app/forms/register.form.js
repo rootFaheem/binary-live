@@ -120,7 +120,6 @@ class Register extends Component {
   };
 
   render() {
-    console.log("_auth::", this.props._auth);
     const { classes } = this.props;
 
     return (

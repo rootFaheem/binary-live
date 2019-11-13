@@ -93,22 +93,22 @@ class SignIn extends Component {
   signInHandler = e => {
     e.preventDefault();
 
-    // const { email, password } = this.state;
+    const { email, password } = this.state;
 
-    // if (email === "") {
-    //   return this.setState({
-    //     emailError: "email is required"
-    //   });
-    // }
-    // if (password === "") {
-    //   return this.setState({
-    //     passwordError: "password is required"
-    //   });
-    // }
+    if (email === "") {
+      return this.setState({
+        emailError: "email is required"
+      });
+    }
+    if (password === "") {
+      return this.setState({
+        passwordError: "password is required"
+      });
+    }
 
     const graphqlQuery = {
       query: `{
-        userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
+        userLogin(email: "${email}", password: "${password}") {
           isLoggedIn
           userId
           name
@@ -118,7 +118,6 @@ class SignIn extends Component {
       }`
     };
 
-    console.log("graphqlQuery:", graphqlQuery);
     this.props.loginUserAction(JSON.stringify(graphqlQuery));
   };
 

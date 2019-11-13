@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 
-import { BrowserRouter } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 import IndexRoute from "../app/routes/index.routes";
-import "./App.css";
+import AppBar from "../app/navBar/navBar";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <BrowserRouter>
+      <Grid container>
+        <Grid item sm={12}>
+          <AppBar></AppBar>
+        </Grid>
+        <Grid item sm={12}>
           <IndexRoute></IndexRoute>
-        </BrowserRouter>
-      </div>
+        </Grid>
+      </Grid>
     );
   }
 }

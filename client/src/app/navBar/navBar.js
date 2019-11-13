@@ -43,9 +43,6 @@ const styles = theme => ({
 class PrimarySearchAppBar extends Component {
   render() {
     const { classes } = this.props;
-
-    console.log("this.props._authCheck:", this.props._authCheck);
-
     return (
       <div className={classes.grow}>
         <Grid>

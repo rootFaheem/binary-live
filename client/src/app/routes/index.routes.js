@@ -11,31 +11,29 @@ import { authCheckAction } from "../../store/actions/auth.action";
 import Home from "../home/home";
 import LoginForm from "../forms/login.form";
 import RegisterForm from "../forms/register.form";
-import AppBar from "../navBar/navBar";
+
 import ChatList from "../user/user";
 
 class Landing extends Component {
-  componentDidMount = () => {
-    const graphqlQuery = {
-      query: `{
-      authCheckUser(type:"authCheck") {
-        isLoggedIn
-        authCheck
-        userId
-        name
-        email
-      }
-    }`
-    };
-
-    this.props.authCheckAction(JSON.stringify(graphqlQuery));
-  };
+  // componentDidMount = () => {
+  //   const graphqlQuery = {
+  //     query: `{
+  //     authCheckUser(type:"authCheck") {
+  //       isLoggedIn
+  //       authCheck
+  //       userId
+  //       name
+  //       email
+  //     }
+  //   }`
+  //   };
+  //   this.props.authCheckAction(JSON.stringify(graphqlQuery));
+  // };
 
   render() {
     console.log("_authCheck", this.props._authCheck);
     return (
       <div>
-        <AppBar></AppBar>
         <Switch>
           <PrivateRoute
             path="/chatlist"
