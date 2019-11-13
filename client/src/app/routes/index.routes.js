@@ -2,40 +2,16 @@ import React, { Component } from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import PrivateRoute from "./privateRoutes/privateRoutes";
-import { authCheckAction } from "../../store/actions/auth.action";
-
 import Home from "../home/home";
 import LoginForm from "../forms/login.form";
 import RegisterForm from "../forms/register.form";
-
 import ChatList from "../user/user";
 
 class Landing extends Component {
-  componentDidMount = () => {
-    let graphqlQuery = {
-      query: `{
-      authCheckUser(type:"authCheck") {
-        isLoggedIn
-        authCheck
-        userId
-        name
-        email
-      }
-    }`,
-      type: "authCheck"
-    };
-
-    JSON.stringify(graphqlQuery);
-
-    this.props.authCheckAction(graphqlQuery, "authCheck");
-  };
-
   render() {
-    console.log("_authCheck", this.props._auth);
     return (
       <div>
         <Switch>
@@ -64,6 +40,4 @@ const mapStateToProps = ({ loginReducer }) => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, { authCheckAction })(Landing)
-);
+export default withRouter(connect(mapStateToProps, {})(Landing));

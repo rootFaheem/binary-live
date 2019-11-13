@@ -1,26 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
-// import { fade } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-// import InputBase from "@material-ui/core/InputBase";
-// import Badge from "@material-ui/core/Badge";
-// import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-// import SearchIcon from "@material-ui/icons/Search";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
-// import MailIcon from "@material-ui/icons/Mail";
-// import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-// import { authCheckAction } from "../../store/actions/auth.action";
+import { loginUserAction } from "../../store/actions/auth.action";
 
 const styles = theme => ({
   root: {
@@ -37,12 +30,56 @@ const styles = theme => ({
     [theme.breakpoints.up("sm")]: {
       display: "block"
     }
-  }
+  },
+
+  authButton: {
+    textDecoration: "none",
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
+  },
+  buttonColor: { color: "#fff" }
 });
 
 class PrimarySearchAppBar extends Component {
+  componentDidMount = () => {
+    let graphqlQuery = {
+      query: `{
+      authCheckUser(type:"authCheck") {
+        isLoggedIn
+        authCheck
+        userId
+        name
+        email
+      }
+    }`
+    };
+    this.props.loginUserAction(JSON.stringify(graphqlQuery));
+  };
   render() {
     const { classes } = this.props;
+
+    const guestLink = (
+      <Fragment>
+        <Link to="/login" className={classes.authButton}>
+          <Button variant="outlined" className={classes.buttonColor}>
+            Login
+          </Button>
+        </Link>
+        <Link to="/register" className={classes.authButton}>
+          <Button variant="outlined" className={classes.buttonColor}>
+            Register
+          </Button>
+        </Link>
+      </Fragment>
+    );
+
+    const authLink = (
+      <Fragment>
+        <Typography> {this.props._auth.name}</Typography>
+        <AccountCircleIcon></AccountCircleIcon>
+      </Fragment>
+    );
+
     return (
       <div className={classes.grow}>
         <Grid>
@@ -62,53 +99,13 @@ class PrimarySearchAppBar extends Component {
                 </Typography>
 
                 <div className={classes.grow} />
-                {/* <div className={classes.search}> */}
-                {/* <div className={classes.searchIcon}>
-                    <SearchIcon />
-                  </div> */}
-                {/* <InputBase
-                    placeholder="Search…"
-                    classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput
-                    }}
-                    inputProps={{ "aria-label": "search" }}
-                  /> */}
-                {/* </div> */}
-                {/* <div className={classes.sectionDesktop}>
-                  <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
 
-                  <IconButton
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                </div>
-                <div className={classes.sectionMobile}>
-                  <IconButton
-                    aria-label="show more"
-                    aria-controls={mobileMenuId}
-                    aria-haspopup="true"
-                    onClick={handleMobileMenuOpen}
-                    color="inherit"
-                  >
-                    <MoreIcon />
-                  </IconButton>
-                </div> */}
+                {this.props._auth && this.props._auth.isLoggedIn
+                  ? authLink
+                  : guestLink}
               </Toolbar>
             </Container>
           </AppBar>
-          {/* {renderMobileMenu}
-          {renderMenu} */}
         </Grid>
       </div>
     );
@@ -122,5 +119,7 @@ const mapStateToProps = ({ loginReducer }) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, {})(withStyles(styles)(PrimarySearchAppBar))
+  connect(mapStateToProps, { loginUserAction })(
+    withStyles(styles)(PrimarySearchAppBar)
+  )
 );

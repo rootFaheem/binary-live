@@ -11,10 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
-import {
-  loginUserAction,
-  authCheckAction
-} from "../../store/actions/auth.action";
+import { loginUserAction } from "../../store/actions/auth.action";
 
 const styles = theme => ({
   "@global": {
@@ -60,22 +57,6 @@ class SignIn extends Component {
     passwordError: ""
   };
 
-  componentDidMount() {
-    // const graphqlQuery = {
-    //   query: `{
-    //     userLogin(email: "faheemtech1@gmail.com", password: "12345678") {
-    //       isLoggedIn
-    //       userId
-    //       name
-    //       email
-    //       token
-    //     }
-    //   }`
-    // };
-    // console.log("graphqlQuery:", graphqlQuery);
-    // this.props.loginUserAction(JSON.stringify(graphqlQuery));
-  }
-
   emailChangedhandler = e => {
     this.setState({
       email: e.target.value,
@@ -118,8 +99,7 @@ class SignIn extends Component {
       }`
     };
 
-    graphqlQuery = JSON.stringify(graphqlQuery);
-    this.props.loginUserAction(graphqlQuery, "login");
+    this.props.loginUserAction(JSON.stringify(graphqlQuery));
   };
 
   render() {
