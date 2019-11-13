@@ -106,7 +106,7 @@ class SignIn extends Component {
       });
     }
 
-    const graphqlQuery = {
+    let graphqlQuery = {
       query: `{
         userLogin(email: "${email}", password: "${password}") {
           isLoggedIn
@@ -118,7 +118,8 @@ class SignIn extends Component {
       }`
     };
 
-    this.props.loginUserAction(JSON.stringify(graphqlQuery));
+    graphqlQuery = JSON.stringify(graphqlQuery);
+    this.props.loginUserAction(graphqlQuery, "login");
   };
 
   render() {

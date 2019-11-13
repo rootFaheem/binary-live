@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 // import InputBase from "@material-ui/core/InputBase";
 // import Badge from "@material-ui/core/Badge";
 // import MenuItem from "@material-ui/core/MenuItem";
-// import Menu from "@material-ui/core/Menu";
+import Menu from "@material-ui/core/Menu";
 // import SearchIcon from "@material-ui/icons/Search";
 // import AccountCircle from "@material-ui/icons/AccountCircle";
 // import MailIcon from "@material-ui/icons/Mail";
@@ -115,9 +115,9 @@ class PrimarySearchAppBar extends Component {
   }
 }
 
-const mapStateToProps = ({ authCheckReducer }) => {
+const mapStateToProps = ({ loginReducer }) => {
   return {
-    _authCheck: authCheckReducer
+    _auth: loginReducer
   };
 };
 

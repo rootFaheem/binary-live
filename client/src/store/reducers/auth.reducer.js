@@ -38,23 +38,6 @@ export const loginReducer = (state = initialState, action) => {
   }
 };
 
-export const authCheckReducer = (state = initialState, action) => {
-  const response = action.response;
-
-  switch (action.type) {
-    case types.AUTH_CHECK_SUCCESS:
-      if (response.isLoggedIn === true) {
-        return response;
-      }
-      return state;
-    case types.AUTH_CHECK_ERROR:
-      return { ...state, response };
-
-    default:
-      return state;
-  }
-};
-
 export const logOutReducer = (state = initialState, action) => {
   const response = action.response;
 

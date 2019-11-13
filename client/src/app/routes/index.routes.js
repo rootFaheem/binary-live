@@ -15,23 +15,27 @@ import RegisterForm from "../forms/register.form";
 import ChatList from "../user/user";
 
 class Landing extends Component {
-  // componentDidMount = () => {
-  //   const graphqlQuery = {
-  //     query: `{
-  //     authCheckUser(type:"authCheck") {
-  //       isLoggedIn
-  //       authCheck
-  //       userId
-  //       name
-  //       email
-  //     }
-  //   }`
-  //   };
-  //   this.props.authCheckAction(JSON.stringify(graphqlQuery));
-  // };
+  componentDidMount = () => {
+    let graphqlQuery = {
+      query: `{
+      authCheckUser(type:"authCheck") {
+        isLoggedIn
+        authCheck
+        userId
+        name
+        email
+      }
+    }`,
+      type: "authCheck"
+    };
+
+    JSON.stringify(graphqlQuery);
+
+    this.props.authCheckAction(graphqlQuery, "authCheck");
+  };
 
   render() {
-    console.log("_authCheck", this.props._authCheck);
+    console.log("_authCheck", this.props._auth);
     return (
       <div>
         <Switch>
@@ -39,12 +43,10 @@ class Landing extends Component {
             path="/chatlist"
             exact
             component={ChatList}
-            isLoggedIn={
-              this.props._authCheck && this.props._authCheck.isLoggedIn
-            }
+            isLoggedIn={this.props._auth && this.props._auth.isLoggedIn}
           ></PrivateRoute>
 
-          {this.props._authCheck && this.props._authCheck.isLoggedIn ? (
+          {this.props._auth && this.props._auth.isLoggedIn ? (
             <Redirect to="/chatlist" />
           ) : null}
           <Route exact path="/" component={Home} />
@@ -56,9 +58,9 @@ class Landing extends Component {
   }
 }
 
-const mapStateToProps = ({ authCheckReducer }) => {
+const mapStateToProps = ({ loginReducer }) => {
   return {
-    _authCheck: authCheckReducer
+    _auth: loginReducer
   };
 };
 

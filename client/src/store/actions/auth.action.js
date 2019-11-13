@@ -9,12 +9,13 @@ export const registerUserAction = data => {
 
 export const authCheckAction = data => {
   return {
-    type: types.AUTH_CHECK,
+    type: types.LOGIN_USER,
     data
   };
 };
 
 export const loginUserAction = data => {
+  console.log("data actionnnnn:::", data);
   return {
     type: types.LOGIN_USER,
     data
