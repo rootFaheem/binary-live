@@ -10,7 +10,28 @@ import LoginForm from "../forms/login.form";
 import RegisterForm from "../forms/register.form";
 import ChatList from "../user/user";
 
+import { loginUserAction } from "../../store/actions/auth.action";
+
 class Landing extends Component {
+  componentDidMount = () => {
+    let graphqlQuery = {
+      query: `
+       {
+      authCheckUser(type:"authCheck") {
+        isLoggedIn
+        authCheck
+        userId
+        name
+        email
+      }
+    }`
+    };
+    let data = {
+      graphqlQuery: JSON.stringify(graphqlQuery),
+      type: "authCheck"
+    };
+    this.props.loginUserAction(data);
+  };
   render() {
     return (
       <div>
@@ -40,4 +61,6 @@ const mapStateToProps = ({ loginReducer }) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, {})(Landing));
+export default withRouter(
+  connect(mapStateToProps, { loginUserAction })(Landing)
+);

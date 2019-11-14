@@ -8,6 +8,9 @@ export const registerUserAction = data => {
 };
 
 export const loginUserAction = data => {
+  console.log("data:", data);
+  console.log("data.graphqlQuery:", data.graphqlQuery);
+  console.log("data.type:", data.type);
   return {
     type: types.LOGIN_USER,
     data

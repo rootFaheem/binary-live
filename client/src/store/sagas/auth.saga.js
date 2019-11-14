@@ -2,6 +2,7 @@ import { put, call } from "redux-saga/effects";
 import {
   registerUserService,
   loginUserService,
+  authCheckService,
   logOutUserService
 } from "../services/authService.services";
 
@@ -18,19 +19,42 @@ export function* registerSaga(payload) {
 }
 
 export function* loginSaga(payload) {
-  const response = yield call(loginUserService, payload);
+  console.log("payload::", payload);
+  console.log("payload data:", payload.data);
+  console.log("payload data TTYYYPPEE:", payload.data.type);
 
-  const res = response.data.userLogin
-    ? response.data.userLogin
-    : response.data.authCheckUser;
-
-  if (res.isLoggedIn) {
-    yield put({
-      type: types.LOGIN_USER_SUCCESS,
-      response: res
+  if (payload.data.type === "authCheck") {
+    const response = yield call(authCheckService, {
+      data: payload.data.graphqlQuery
     });
-  } else if (res.success === false) {
-    yield put({ type: types.LOGIN_USER_ERROR, response: res });
+
+    console.log("authcheck res::", response);
+    const res = response.data.authCheckUser;
+
+    if (res.isLoggedIn) {
+      yield put({
+        type: types.LOGIN_USER_SUCCESS,
+        response: res
+      });
+    } else if (res.success === false) {
+      yield put({ type: types.LOGIN_USER_ERROR, response: res });
+    }
+  } else {
+    const response = yield call(loginUserService, {
+      data: payload.data.graphqlQuery
+    });
+
+    console.log("login res::", response);
+    const res = response.data.userLogin;
+
+    if (res.isLoggedIn) {
+      yield put({
+        type: types.LOGIN_USER_SUCCESS,
+        response: res
+      });
+    } else if (res.success === false) {
+      yield put({ type: types.LOGIN_USER_ERROR, response: res });
+    }
   }
 }
 

@@ -33,11 +33,12 @@ type AuthData {
 }
 
 type RootQuery {
-    userLogin(email: String!, password: String!): AuthData
+    
     authCheckUser(type: String): AuthCheckRes!
 }
 
 type RootMutation {
+    userLogin(email: String!, password: String!): AuthData
     createUser(userInput: UserInputData): User!
 }
 

@@ -88,7 +88,8 @@ class SignIn extends Component {
     }
 
     let graphqlQuery = {
-      query: `{
+      query: `
+      mutation {
         userLogin(email: "${email}", password: "${password}") {
           isLoggedIn
           userId
@@ -99,7 +100,12 @@ class SignIn extends Component {
       }`
     };
 
-    this.props.loginUserAction(JSON.stringify(graphqlQuery));
+    let data = {
+      graphqlQuery: JSON.stringify(graphqlQuery),
+      type: "login"
+    };
+
+    this.props.loginUserAction(data);
   };
 
   render() {

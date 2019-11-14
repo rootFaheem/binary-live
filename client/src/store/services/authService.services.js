@@ -16,6 +16,7 @@ export const registerUserService = request => {
 };
 
 export const loginUserService = request => {
+  console.log("API HIT::", request.data);
   return axios
     .post("/graphql", request.data, {
       headers: {
@@ -31,6 +32,7 @@ export const loginUserService = request => {
 };
 
 export const authCheckService = request => {
+  console.log("request in authcheck::", request.data);
   return axios
     .post("/graphql", request.data, {
       headers: {
@@ -38,6 +40,7 @@ export const authCheckService = request => {
       }
     })
     .then(response => {
+      console.log("response iiiiiiiiiiiiiiiiiiiii: ", response);
       return response.data;
     })
     .catch(err => {
