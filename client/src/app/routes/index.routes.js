@@ -13,25 +13,6 @@ import ChatList from "../user/user";
 import { loginUserAction } from "../../store/actions/auth.action";
 
 class Landing extends Component {
-  componentDidMount = () => {
-    let graphqlQuery = {
-      query: `
-       {
-      authCheckUser(type:"authCheck") {
-        isLoggedIn
-        authCheck
-        userId
-        name
-        email
-      }
-    }`
-    };
-    let data = {
-      graphqlQuery: JSON.stringify(graphqlQuery),
-      type: "authCheck"
-    };
-    this.props.loginUserAction(data);
-  };
   render() {
     return (
       <div>

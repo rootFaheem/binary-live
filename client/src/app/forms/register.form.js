@@ -100,23 +100,6 @@ class Register extends Component {
         passwordError: "password is required"
       });
     }
-
-    const graphqlQuery = {
-      query: `
-      mutation {
-        createUser(userInput: {email: "${email}",
-                                name: "${name}", 
-                                password: "${password}"}) {
-          _id
-          name
-          email
-        }
-        
-      }
-      `
-    };
-
-    this.props.registerUserAction(JSON.stringify(graphqlQuery));
   };
 
   render() {

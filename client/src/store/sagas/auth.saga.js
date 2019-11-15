@@ -24,9 +24,7 @@ export function* loginSaga(payload) {
   console.log("payload data TTYYYPPEE:", payload.data.type);
 
   if (payload.data.type === "authCheck") {
-    const response = yield call(authCheckService, {
-      data: payload.data.graphqlQuery
-    });
+    const response = yield call(authCheckService, data);
 
     console.log("authcheck res::", response);
     const res = response.data.authCheckUser;
@@ -40,9 +38,7 @@ export function* loginSaga(payload) {
       yield put({ type: types.LOGIN_USER_ERROR, response: res });
     }
   } else {
-    const response = yield call(loginUserService, {
-      data: payload.data.graphqlQuery
-    });
+    const response = yield call(loginUserService, data);
 
     console.log("login res::", response);
     const res = response.data.userLogin;

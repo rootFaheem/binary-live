@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const graphqlhttp = require("express-graphql");
-
-const graphqlSchema = require("./app/graphql/schema");
-const graphqlResolver = require("./app/graphql/resolvers");
 
 const { PORT, MONGODB_URI } = require("./configs/keys");
 
@@ -30,27 +26,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-//  GraphQL config/route hanlder
-app.use(
-  "/graphql",
-  graphqlhttp({
-    schema: graphqlSchema,
-    rootValue: graphqlResolver,
-    graphiql: true,
-    customFormatErrorFn(err) {
-      if (!err.originalError) {
-        return err;
-      }
-
-      const data = err.originalError.data;
-      const message = err.message || "An error occured";
-      const code = err.originalError.code || 500;
-
-      return { message, status: code, data };
-    }
-  })
-);
 
 mongoose
   .connect(MONGODB_URI, {

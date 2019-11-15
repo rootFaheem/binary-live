@@ -86,26 +86,6 @@ class SignIn extends Component {
         passwordError: "password is required"
       });
     }
-
-    let graphqlQuery = {
-      query: `
-      mutation {
-        userLogin(email: "${email}", password: "${password}") {
-          isLoggedIn
-          userId
-          name
-          email
-          token
-        }
-      }`
-    };
-
-    let data = {
-      graphqlQuery: JSON.stringify(graphqlQuery),
-      type: "login"
-    };
-
-    this.props.loginUserAction(data);
   };
 
   render() {

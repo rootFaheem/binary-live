@@ -41,25 +41,6 @@ const styles = theme => ({
 });
 
 class PrimarySearchAppBar extends Component {
-  // componentDidMount = () => {
-  //   let graphqlQuery = {
-  //     query: `{
-  //     authCheckUser(type:"authCheck") {
-  //       isLoggedIn
-  //       authCheck
-  //       userId
-  //       name
-  //       email
-  //     }
-  //   }`
-  //   };
-
-  //   let data = {
-  //     graphqlQuery: JSON.stringify(graphqlQuery),
-  //     type: "login"
-  //   };
-  //   this.props.loginUserAction(data);
-  // };
   render() {
     const { classes } = this.props;
 
