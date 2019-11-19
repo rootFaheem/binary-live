@@ -5,7 +5,24 @@ const bcrypt = require("bcryptjs");
 const resolvers = {
   Query: {
     hello: () => "hello",
-    getUsers: () => UserModel.find()
+
+    getUsers: () => UserModel.find(),
+
+    login: async (_, { email, password }) => {
+      let user = await UserModel.findOne({ email });
+
+      if (!user) {
+        return { success: false, message: "user not found" };
+      }
+
+      let isMatch = await bcrypt.compare(password, user.password);
+
+      if (isMatch) {
+        return { success: true, message: "you are now logged-in" };
+      } else {
+        return { success: false, message: "password incorrect" };
+      }
+    }
   },
   Mutation: {
     registerUser: async (_, { name, email, password }) => {
