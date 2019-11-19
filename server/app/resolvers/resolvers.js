@@ -1,15 +1,35 @@
 const UserModel = require("../models/user.model");
 
+const bcrypt = require("bcryptjs");
+
 const resolvers = {
   Query: {
     hello: () => "hello"
   },
   Mutation: {
     registerUser: async (_, { name, email, password }) => {
-      console.log("name", name);
-      console.log("email", email);
-      console.log("password", password);
-      return { id: "1", name, message: "jabba" };
+      let userExists = await UserModel.findOne({ email });
+
+      if (userExists) {
+        return { id: "1", name: "not a user", message: "user already exists" };
+      }
+
+      let hash = await bcrypt.hash(password, 12);
+
+      let newUserModel = new UserModel({
+        name,
+        email,
+        password: hash
+      });
+
+      let doc = await newUserModel.save();
+      console.log("doc", doc);
+
+      return {
+        id: doc._id,
+        name: doc.name,
+        message: "user registered successfully"
+      };
     }
   }
 };

@@ -12,7 +12,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    registerUser(name: String!, email: String!, passwword: String): User!
+    registerUser(name: String!, email: String!, password: String): User!
   }
 `;
 
