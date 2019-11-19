@@ -4,14 +4,15 @@ const bcrypt = require("bcryptjs");
 
 const resolvers = {
   Query: {
-    hello: () => "hello"
+    hello: () => "hello",
+    getUsers: () => UserModel.find()
   },
   Mutation: {
     registerUser: async (_, { name, email, password }) => {
       let userExists = await UserModel.findOne({ email });
 
       if (userExists) {
-        return { id: "1", name: "not a user", message: "user already exists" };
+        return { id: "1", name: "not a user", email: "already registered" };
       }
 
       let hash = await bcrypt.hash(password, 12);
@@ -28,7 +29,7 @@ const resolvers = {
       return {
         id: doc._id,
         name: doc.name,
-        message: "user registered successfully"
+        email: doc.email
       };
     }
   }
