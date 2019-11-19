@@ -5,6 +5,9 @@ const app = express();
 
 const mongoose = require("mongoose");
 
+const typeDefs = require("./app/typeDefs/typeDefs");
+const resolvers = require("./app/resolvers/resolvers");
+
 const { MONGODB_URI, PORT } = require("./configs/keys");
 
 mongoose
@@ -20,18 +23,6 @@ mongoose
   .catch(err => {
     console.log(err);
   });
-
-const typeDefs = gql`
-  type Query {
-    hello: String!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "hello"
-  }
-};
 
 const server = new ApolloServer({
   typeDefs,
