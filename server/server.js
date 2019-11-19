@@ -1,8 +1,25 @@
 const { ApolloServer, gql } = require("apollo-server-express");
-// const { typeDefs, resolvers } = require("./schema");
 const express = require("express");
 
 const app = express();
+
+const mongoose = require("mongoose");
+
+const { MONGODB_URI, PORT } = require("./configs/keys");
+
+mongoose
+  .connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("MongoDb conncected...");
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const typeDefs = gql`
   type Query {
@@ -23,6 +40,8 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+app.listen(PORT, () =>
+  console.log(
+    `🚀 server is running at http://localhost:4000${server.graphqlPath} `
+  )
 );
