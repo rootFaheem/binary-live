@@ -2,9 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "description": "binary-live backend",
-  "main": "server.js",
+  "main": "./bin/www.js",
+  "engines": {
+    "node": "12.13.1",
+    "yarn": "1.19.1"
+  },
   "scripts": {
-    "dev": "nodemon -r dotenv/config server.js",
+    "dev": "nodemon -r dotenv/config ./bin/www.js",
     "start": "node server.js"
   },
   "keywords": [

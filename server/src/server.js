@@ -1,41 +1,22 @@
-const { ApolloServer, gql } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
-const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const app = express();
 
-const typeDefs = require("./app/typeDefs/typeDefs");
-const resolvers = require("./app/resolvers/resolvers");
+const typeDefs = require("../app/typeDefs/typeDefs");
+const resolvers = require("../app/resolvers/resolvers");
 
-const { MONGODB_URI, PORT } = require("./configs/keys");
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
-const startServer = async () => {
-  const app = express();
+app.use(cookieParser());
 
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers
-  });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
 
-  server.applyMiddleware({ app });
+server.applyMiddleware({ app });
 
-  await mongoose
-    .connect(MONGODB_URI, {
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-    .then(() => {
-      console.log("MongoDb conncected...");
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  app.listen(PORT, () =>
-    console.log(
-      `🚀  server is running at http://localhost:${PORT}${server.graphqlPath} `
-    )
-  );
-};
-
-startServer();
+module.exports = app;
