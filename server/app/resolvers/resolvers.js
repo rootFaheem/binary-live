@@ -8,7 +8,12 @@ const resolvers = {
 
     getUsers: () => UserModel.find(),
 
-    login: async (_, { email, password }) => {
+    login: async (_, args, req) => {
+      const { email, password } = args;
+      console.log("login hit");
+      console.log("_", _);
+      console.log("args:", args);
+      console.log("req:", req);
       let user = await UserModel.findOne({ email });
 
       if (!user) {
