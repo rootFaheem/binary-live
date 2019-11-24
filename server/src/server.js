@@ -11,19 +11,21 @@ const resolvers = require("../app/resolvers/resolvers");
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
-const corsOptions = {
-  origin: "http://localhost:8080", //change with your own client URL
-  credentials: true
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(cookieParser());
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cors: false
+  context: ({ req, res }) => {
+    // console.log("req::", req.cookies);
+    console.log("res in server::", res.cookie);
+    return {
+      req,
+      res
+    };
+  }
 });
 
 server.applyMiddleware({ app });

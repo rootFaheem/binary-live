@@ -10,14 +10,14 @@ const resolvers = {
 
     getUsers: () => UserModel.find(),
 
-    login: async (_, args, ctx, info) => {
+    login: async (_, args, { res }) => {
       const { email, password } = args;
       console.log("login hit");
-      console.log("_", _);
+      // console.log("_", _);
       console.log("args:", args);
-      console.log("ctx:", ctx);
-      console.log("ctx.res:", ctx.res);
-      console.log("info:", info);
+      // console.log("ctx:", ctx);
+      // console.log("ctx.res:", ctx.res);
+      // console.log("info:", info);
       let user = await UserModel.findOne({ email });
 
       if (!user) {
@@ -28,12 +28,16 @@ const resolvers = {
 
       if (isMatch) {
         const token = jwt.sign({ email: user.email }, SECRET_KEY);
+        console.log("token:::", token);
 
-        ctx.cookie("token", token, {
-          httpOnly: true,
+        res.cookie("token", token, {
+          // httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 31
         });
-        console.log(ctx.res);
+        console.log(
+          "ressssssss after cookiieieiiiieieiie::::::::::::::::",
+          res.cookies
+        );
 
         return { success: true, message: "you are now logged-in" };
       } else {
